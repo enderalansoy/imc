@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import { ProductType, CategoryType, CustomerType, InvoiceType, InvoiceLineType, KpiType } from '../interfaces';
+import { ProductType, CategoryType, CustomerType, InvoiceType, PeriodType } from '../interfaces';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3001/',
@@ -26,4 +26,9 @@ export const Customer = {
 
 export const Category = {
   getCategories: (params?: AxiosRequestConfig): Promise<CategoryType[]> => requests.get('categories-revenues', params)
+}
+
+export const Period = {
+  getMonthly: (params?: AxiosRequestConfig): Promise<PeriodType[]> => requests.get('monthly-revenues', params),
+  getWeekly: (params?: AxiosRequestConfig): Promise<PeriodType[]> => requests.get('weekly-revenues', params)
 }

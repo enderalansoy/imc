@@ -26,6 +26,9 @@ const App = () => {
     { field: 'customer_name', headerName: 'Customer Name', flex: 300 },
     { field: 'date', headerName: 'Date', flex: 150 },
     { field: 'region', headerName: 'Region', flex: 150 },
+    { field: 'total_invoice', headerName: 'Total Invoice', flex: 150, hide: valueType === 'total_revenue' ? false : true },
+    { field: 'total_margin', headerName: 'Total Margin', flex: 150, hide: valueType === 'total_margin' ? false : true },
+    { field: 'region', headerName: 'Region', flex: 150 },
   ]
 
   const customerColumns: GridColDef[] = [
