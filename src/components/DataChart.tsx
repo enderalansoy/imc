@@ -1,11 +1,14 @@
 import { Bar, Line } from 'react-chartjs-2'
-import { CategoryType } from '../interfaces'
+import { CategoryType, PeriodType } from '../interfaces'
 
 const DataChart = ({ data, type, valueType }: {
-  data: CategoryType[]
+  data: any
   type: 'bar' | 'line'
   valueType: string
-}) =>
+}) =>{
+
+  console.log(data)
+  return(
   <div>
     {type === 'bar' ?
       <Bar
@@ -20,14 +23,14 @@ const DataChart = ({ data, type, valueType }: {
           plugins: {
             legend: {
               display: true,
-              position: "bottom"
+              position: 'bottom'
             }
           }
         }}
       /> :
       <Line
         data={{
-          labels: data.map((cat: any) => cat.category_name),
+          labels: data.map((cat: any) => cat.week || cat.month),
           datasets:
             valueType === 'total_margin' ?
               [{ label: valueType, data: data.map((cat: CategoryType) => cat.total_margin) }] :
@@ -37,12 +40,12 @@ const DataChart = ({ data, type, valueType }: {
           plugins: {
             legend: {
               display: true,
-              position: "bottom"
+              position: 'bottom'
             }
           }
         }}
       />}
-  </div>
-
+  </div>)
+}
 
 export default DataChart

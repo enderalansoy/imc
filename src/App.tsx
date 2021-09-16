@@ -4,8 +4,8 @@ import { Box, Grid, FormControl, InputLabel, MenuItem } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
 
-import { CategoryType, CustomerType, InvoiceType } from './interfaces'
-import { Category, Customer, Invoice } from './api/api'
+import { CategoryType, CustomerType, InvoiceType, PeriodType } from './interfaces'
+import { Category, Customer, Invoice, Period } from './api/api'
 
 import MenuBar from './components/MenuBar'
 import DataCard from './components/DataCard'
@@ -18,6 +18,7 @@ const App = () => {
   const [invoices, setInvoices] = useState<InvoiceType[]>([])
   const [customers, setCustomers] = useState<CustomerType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
+  const [revenues, setRevenues] =  useState<PeriodType[]>([])
 
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -61,13 +62,18 @@ const App = () => {
         setInvoices(await Invoice.getInvoices({ params: { '_sort': 'date', '_order': 'desc' } }))
         setCustomers(await Customer.getCustomers({ params: { '_sort': valueType, '_order': 'desc' } }))
         setCategories(await Category.getCategories({ params: { '_sort': valueType, '_order': 'desc' } }))
+        if (period === 'weekly') {
+          setRevenues(await Period.getWeekly({ params: { '_sort': 'week', '_order': 'asc' } }))
+        } else {
+          setRevenues(await Period.getMonthly({ params: { '_sort': 'month', '_order': 'asc' } }))
+        }
       } catch (e) {
         console.error(e)
         setIsError(true)
       }
     }
     fetchData()
-  }, [valueType])
+  }, [valueType, period])
 
   return (
     <div className="App">
@@ -136,6 +142,12 @@ const App = () => {
               <DataCard
                 title={'Categories'}
                 content={<DataChart data={categories} valueType={valueType} type={'bar'} />}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <DataCard
+                title={'Revenue Periods'}
+                content={<DataChart data={revenues} valueType={valueType} type={'line'} />}
               />
             </Grid>
           </Grid>
