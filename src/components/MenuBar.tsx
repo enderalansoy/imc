@@ -2,7 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-const Menu = () =>
+const MenuBar = () =>
   <AppBar position="static">
     <Toolbar>
       <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
@@ -14,4 +14,4 @@ const Menu = () =>
     </Toolbar>
   </AppBar>
 
-export default Menu
+export default MenuBar

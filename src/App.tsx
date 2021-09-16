@@ -1,14 +1,18 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { Box, Grid, FormControl, InputLabel, MenuItem } from '@mui/material'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
+
 import { CustomerType, InvoiceType } from './interfaces'
 import { Customer, Invoice } from './api/api'
-import Menu from './components/Menu'
+
+import MenuBar from './components/MenuBar'
 import DataCard from './components/DataCard'
-import { Box, Grid } from '@mui/material'
-import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
 
 const App = () => {
   const [valueType, setValueType] = useState<string>('total_revenue')
+  const [period, setPeriod] = useState<string>('weekly')
   const [invoices, setInvoices] = useState<InvoiceType[]>([])
   const [customers, setCustomers] = useState<CustomerType[]>([])
 
@@ -29,7 +33,7 @@ const App = () => {
       flex: 150,
       // Round the number to 2 decimal places
       valueFormatter: (params: GridValueFormatterParams) => Math.round((Number(params.value) + Number.EPSILON) * 100) / 100,
-      hide: valueType == 'total_revenue' ? false : true
+      hide: valueType === 'total_revenue' ? false : true
     },
     {
       field: 'total_margin',
@@ -37,7 +41,7 @@ const App = () => {
       flex: 150,
       // Round the number to 2 decimal places
       valueFormatter: (params: GridValueFormatterParams) => Math.round((Number(params.value) + Number.EPSILON) * 100) / 100,
-      hide: valueType == 'total_margin' ? false : true
+      hide: valueType === 'total_margin' ? false : true
     },
     { field: 'invoices_count', headerName: '# of Invoices', flex: 150 }
   ]
@@ -53,11 +57,11 @@ const App = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [valueType])
 
   return (
     <div className="App">
-      <Menu />
+      <MenuBar />
       <Box sx={{ margin: 4 }}>
         {isError ? (
           <div>
@@ -65,6 +69,32 @@ const App = () => {
           </div>
         ) : (
           <Grid container spacing={2}>
+            <Grid item xs={6} md={6}>
+              <FormControl fullWidth>
+                <InputLabel>Value Type</InputLabel>
+                <Select
+                  value={valueType}
+                  label="Value Type"
+                  onChange={(event: SelectChangeEvent) => setValueType(event.target.value as string)}
+                >
+                  <MenuItem value={'total_revenue'}>Revenue</MenuItem>
+                  <MenuItem value={'total_margin'}>Margin</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <FormControl fullWidth>
+                <InputLabel>Period</InputLabel>
+                <Select
+                  value={period}
+                  label="Period"
+                  onChange={(event: SelectChangeEvent) => setPeriod(event.target.value as string)}
+                >
+                  <MenuItem value={'weekly'}>Weekly</MenuItem>
+                  <MenuItem value={'monthly'}>Monthly</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12} md={6}>
               <DataCard title={'Latest Invoices'} content={
                 <div style={{ height: 600, width: '100%' }}>
