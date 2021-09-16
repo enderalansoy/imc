@@ -24,7 +24,8 @@ const App = () => {
   const invoiceColumns: GridColDef[] = [
     { field: 'id', headerName: 'ID', flex: 100 },
     { field: 'customer_name', headerName: 'Customer Name', flex: 300 },
-    { field: 'date', headerName: 'Date', flex: 150 }
+    { field: 'date', headerName: 'Date', flex: 150 },
+    { field: 'region', headerName: 'Region', flex: 150 },
   ]
 
   const customerColumns: GridColDef[] = [
