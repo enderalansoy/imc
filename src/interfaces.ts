@@ -29,10 +29,19 @@ export interface InvoiceType {
   customer_id: number,
   customer_name: string,
   date: string,
-  invoice_lines: InvoiceLineType[]
+  invoice_lines: InvoiceLineType[],
+  region: string,
+  total_invoice: number,
+  total_margin: number
 }
 
 export interface KpiType {
   label: string,
   value: number
+}
+
+export interface CategoryType {
+  category_name: string,
+  total_revenue: number,
+  total_margin: number
 }
