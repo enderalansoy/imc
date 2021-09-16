@@ -7,9 +7,11 @@ export interface ProductType {
 }
 
 export interface CustomerType {
-  id: number,
-  firstName: string,
-  lastName: string
+  customer_id: number,
+  customer_name: string,
+  total_revenue: number,
+  total_margin: number,
+  invoices_count: number
 }
 
 export interface InvoiceLineType {

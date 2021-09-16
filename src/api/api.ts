@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ProductType, CustomerType, InvoiceType, InvoiceLineType, KpiType } from '../interfaces';
 
 const instance = axios.create({
@@ -9,9 +9,17 @@ const instance = axios.create({
 const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
-  get: (url: string) => instance.get(url).then(responseBody),
-};
+  get: (url: string, params?: AxiosRequestConfig) => instance.get(url, params).then(responseBody),
+}
 
 export const Product = {
-  getProducts: (): Promise<ProductType[]> => requests.get('products'),
-};
+  getProducts: (): Promise<ProductType[]> => requests.get('products')
+}
+
+export const Invoice = {
+  getInvoices: (params?: AxiosRequestConfig): Promise<InvoiceType[]> => requests.get('invoices', params)
+}
+
+export const Customer = {
+  getCustomers: (params?: AxiosRequestConfig): Promise<CustomerType[]> => requests.get('customers-revenues', params)
+}

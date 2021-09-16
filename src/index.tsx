@@ -7,11 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
-    background: {
-      default: 'grey',
-      paper: 'black'
-    }
+    mode: 'light'
   },
 });
 
