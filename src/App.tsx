@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, Grid, FormControl, InputLabel, MenuItem } from '@mui/material'
+import { Box, Grid, FormControl, InputLabel, MenuItem, NativeSelect } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
 
@@ -8,11 +8,12 @@ import { Category, Customer, Invoice, Period } from './api/api'
 import { CategoryType, CustomerType, InvoiceType, PeriodType } from './interfaces'
 import { roundNumber } from './helpers'
 
+import BootstrapInput from './components/BootstrapInput'
 import DataCard from './components/DataCard'
 import DataChart from './components/DataChart'
 import MenuBar from './components/MenuBar'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [valueType, setValueType] = useState<string>('total_revenue')
   const [period, setPeriod] = useState<string>('weekly')
 
@@ -103,27 +104,27 @@ const App = () => {
             <Grid item xs={6} md={6}>
               <FormControl fullWidth>
                 <InputLabel>Value Type</InputLabel>
-                <Select
+                <NativeSelect
                   value={valueType}
-                  label="Value Type"
-                  onChange={(event: SelectChangeEvent) => setValueType(event.target.value as string)}
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setValueType(event.target.value as string)}
+                  input={<BootstrapInput />}
                 >
-                  <MenuItem value={'total_revenue'}>Revenue</MenuItem>
-                  <MenuItem value={'total_margin'}>Margin</MenuItem>
-                </Select>
+                  <option value={'total_revenue'}>Revenue</option>
+                  <option value={'total_margin'}>Margin</option>
+                </NativeSelect>
               </FormControl>
             </Grid>
             <Grid item xs={6} md={6}>
               <FormControl fullWidth>
                 <InputLabel>Period</InputLabel>
-                <Select
+                <NativeSelect
                   value={period}
-                  label="Period"
-                  onChange={(event: SelectChangeEvent) => setPeriod(event.target.value as string)}
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setPeriod(event.target.value as string)}
+                  input={<BootstrapInput />}
                 >
-                  <MenuItem value={'weekly'}>Weekly</MenuItem>
-                  <MenuItem value={'monthly'}>Monthly</MenuItem>
-                </Select>
+                  <option value={'weekly'}>Weekly</option>
+                  <option value={'monthly'}>Monthly</option>
+                </NativeSelect>
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6}>
