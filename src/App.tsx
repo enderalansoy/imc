@@ -4,12 +4,12 @@ import { Box, Grid, FormControl, InputLabel, MenuItem } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
 
-import { CategoryType, CustomerType, InvoiceType, PeriodType } from './interfaces'
 import { Category, Customer, Invoice, Period } from './api/api'
+import { CategoryType, CustomerType, InvoiceType, PeriodType } from './interfaces'
 
-import MenuBar from './components/MenuBar'
 import DataCard from './components/DataCard'
 import DataChart from './components/DataChart'
+import MenuBar from './components/MenuBar'
 
 const App = () => {
   const [valueType, setValueType] = useState<string>('total_revenue')
@@ -18,7 +18,7 @@ const App = () => {
   const [invoices, setInvoices] = useState<InvoiceType[]>([])
   const [customers, setCustomers] = useState<CustomerType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
-  const [revenues, setRevenues] =  useState<PeriodType[]>([])
+  const [revenues, setRevenues] = useState<PeriodType[]>([])
 
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -29,7 +29,7 @@ const App = () => {
     { field: 'region', headerName: 'Region', flex: 150 },
     { field: 'total_invoice', headerName: 'Total Invoice', flex: 150, hide: valueType === 'total_revenue' ? false : true },
     { field: 'total_margin', headerName: 'Total Margin', flex: 150, hide: valueType === 'total_margin' ? false : true },
-    { field: 'region', headerName: 'Region', flex: 150 },
+    { field: 'region', headerName: 'Region', flex: 150 }
   ]
 
   const customerColumns: GridColDef[] = [

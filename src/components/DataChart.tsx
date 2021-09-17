@@ -1,23 +1,19 @@
 import { Bar, Line } from 'react-chartjs-2'
-import { CategoryType, PeriodType } from '../interfaces'
 
 const DataChart = ({ data, type, valueType }: {
   data: any
   type: 'bar' | 'line'
   valueType: string
-}) =>{
-
-  console.log(data)
-  return(
+}) =>
   <div>
     {type === 'bar' ?
       <Bar
         data={{
-          labels: data.map((cat: any) => cat.category_name),
+          labels: data.map((cat: any) => cat.category_name || cat.week || cat.month),
           datasets:
             valueType === 'total_margin' ?
-              [{ label: valueType, data: data.map((cat: CategoryType) => cat.total_margin) }] :
-              [{ label: valueType, data: data.map((cat: CategoryType) => cat.total_revenue) }]
+              [{ label: valueType, data: data.map((cat: any) => cat.total_margin) }] :
+              [{ label: valueType, data: data.map((cat: any) => cat.total_revenue) }]
         }}
         options={{
           plugins: {
@@ -30,11 +26,11 @@ const DataChart = ({ data, type, valueType }: {
       /> :
       <Line
         data={{
-          labels: data.map((cat: any) => cat.week || cat.month),
+          labels: data.map((cat: any) => cat.category_name || cat.week || cat.month),
           datasets:
             valueType === 'total_margin' ?
-              [{ label: valueType, data: data.map((cat: CategoryType) => cat.total_margin) }] :
-              [{ label: valueType, data: data.map((cat: CategoryType) => cat.total_revenue) }]
+              [{ label: valueType, data: data.map((cat: any) => cat.total_margin) }] :
+              [{ label: valueType, data: data.map((cat: any) => cat.total_revenue) }]
         }}
         options={{
           plugins: {
@@ -45,7 +41,6 @@ const DataChart = ({ data, type, valueType }: {
           }
         }}
       />}
-  </div>)
-}
+  </div>
 
 export default DataChart

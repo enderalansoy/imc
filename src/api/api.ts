@@ -1,12 +1,12 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import { ProductType, CategoryType, CustomerType, InvoiceType, PeriodType } from '../interfaces';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import { CategoryType, CustomerType, InvoiceType, PeriodType, ProductType } from '../interfaces'
 
 const instance = axios.create({
   baseURL: 'http://localhost:3001/',
-  timeout: 15000,
+  timeout: 15000
 });
 
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response.data
 
 const requests = {
   get: (url: string, params?: AxiosRequestConfig) => instance.get(url, params).then(responseBody),
