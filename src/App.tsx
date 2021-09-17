@@ -6,6 +6,7 @@ import { DataGrid, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid
 
 import { Category, Customer, Invoice, Period } from './api/api'
 import { CategoryType, CustomerType, InvoiceType, PeriodType } from './interfaces'
+import { roundNumber } from './helpers'
 
 import DataCard from './components/DataCard'
 import DataChart from './components/DataChart'
@@ -27,8 +28,22 @@ const App = () => {
     { field: 'customer_name', headerName: 'Customer Name', flex: 300 },
     { field: 'date', headerName: 'Date', flex: 150 },
     { field: 'region', headerName: 'Region', flex: 150 },
-    { field: 'total_invoice', headerName: 'Total Invoice', flex: 150, hide: valueType === 'total_revenue' ? false : true },
-    { field: 'total_margin', headerName: 'Total Margin', flex: 150, hide: valueType === 'total_margin' ? false : true },
+    {
+      field: 'total_invoice',
+      headerName: 'Total Invoice',
+      flex: 150,
+      // Round the number to 2 decimal places
+      valueFormatter: (params: GridValueFormatterParams) => roundNumber(Number(params.value)),
+      hide: valueType === 'total_revenue' ? false : true
+    },
+    {
+      field: 'total_margin',
+      headerName: 'Total Margin',
+      flex: 150,
+      // Round the number to 2 decimal places
+      valueFormatter: (params: GridValueFormatterParams) => roundNumber(Number(params.value)),
+      hide: valueType === 'total_margin' ? false : true
+    },
     { field: 'region', headerName: 'Region', flex: 150 }
   ]
 
@@ -40,7 +55,7 @@ const App = () => {
       headerName: 'Total Revenue',
       flex: 150,
       // Round the number to 2 decimal places
-      valueFormatter: (params: GridValueFormatterParams) => Math.round((Number(params.value) + Number.EPSILON) * 100) / 100,
+      valueFormatter: (params: GridValueFormatterParams) => roundNumber(Number(params.value)),
       hide: valueType === 'total_revenue' ? false : true
     },
     {
@@ -48,7 +63,7 @@ const App = () => {
       headerName: 'Total Margin',
       flex: 150,
       // Round the number to 2 decimal places
-      valueFormatter: (params: GridValueFormatterParams) => Math.round((Number(params.value) + Number.EPSILON) * 100) / 100,
+      valueFormatter: (params: GridValueFormatterParams) => roundNumber(Number(params.value)),
       hide: valueType === 'total_margin' ? false : true
     },
     { field: 'invoices_count', headerName: '# of Invoices', flex: 150 }
