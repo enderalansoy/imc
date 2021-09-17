@@ -166,6 +166,22 @@ const App = (): JSX.Element => {
                 content={<DataChart data={revenues} valueType={valueType} type={'line'} />}
               />
             </Grid>
+            <Grid item xs={12} md={6}>
+              <DataCard
+                title={'Average Revenue Per Invoice Periods'}
+                content={
+                  <DataChart 
+                    data={revenues.map(rev => ({ 
+                      total_margin: rev.total_margin / rev.invoices_count, 
+                      total_revenue:  rev.total_revenue / rev.invoices_count,
+                      month: rev.month,
+                      week: rev.week
+                    }))} 
+                    valueType={valueType} 
+                    type={'line'} 
+                  />}
+              />
+            </Grid>
           </Grid>
 
         )}
